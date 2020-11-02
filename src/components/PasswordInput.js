@@ -11,25 +11,31 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
 const Input = styled.input`
-  background: red;
+  background: ${(props) =>
+    `hsl(${Math.min(props.pwdLen.length * 10, 120)} ,100%,50%)`};
 `;
+
 const PasswordInput = ({ value, onChange }) => {
   const [password, setPassword] = useState(value);
   useEffect(() => {
     onChange(password);
   }, [password]);
+
   return (
     <Input
       type="password"
       value={password}
+      pwdLen={password}
       onChange={(event) => setPassword(event.target.value)}
     />
   );
 };
+
 PasswordInput.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };
+
 PasswordInput.defaultProps = {
   value: '',
 };
